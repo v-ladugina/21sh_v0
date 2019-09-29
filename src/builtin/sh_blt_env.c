@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_blt_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:18:26 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:18:28 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
-int			sh_blt_setenv(t_sh *sh, char **argv, char **envp)
+int		sh_blt_setenv(t_sh *sh, char **argv, char **envp)
 {
 	int ac;
 	int m;
@@ -18,7 +30,7 @@ int			sh_blt_setenv(t_sh *sh, char **argv, char **envp)
 	return (0);
 }
 
-int			sh_blt_unsetenv(t_sh *sh, char **argv, char **envp)
+int		sh_blt_unsetenv(t_sh *sh, char **argv, char **envp)
 {
 	int ac;
 
@@ -34,7 +46,7 @@ int			sh_blt_unsetenv(t_sh *sh, char **argv, char **envp)
 	return (0);
 }
 
-int 		sh_blt_printenv(t_sh *sh, char **argv, char **envp)
+int		sh_blt_printenv(t_sh *sh, char **argv, char **envp)
 {
 	(void)sh;
 	(void)argv;
@@ -43,9 +55,10 @@ int 		sh_blt_printenv(t_sh *sh, char **argv, char **envp)
 	ft_arr_print(envp, ft_arr_len((void**)envp));
 	return (0);
 }
+
 /*
-int			sh_blt_env(t_sh *sh, char **argv, char **envp)
-{
-	return (0);
-}
+**int			sh_blt_env(t_sh *sh, char **argv, char **envp)
+**{
+**	return (0);
+**}
 */

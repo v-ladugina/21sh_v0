@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ftsh.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:22:19 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:22:20 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 #include <fcntl.h>
 
@@ -10,24 +22,24 @@ int		sh_file_run(char *filename, char **envp)
 	int		ret;
 
 	DF0
-	//ft_putendl(filename);
 	if (!(dscript = ft_read_file(filename)))
 		return (KO);
 	sh_sh_init(&sh, envp, SH_MODE_SCR); // TODO: specify correct sh-mode
 	ret = sh_script_run(sh, dscript->str);
 	ft_dstrfree(&dscript);
 	sh_sh_free(&sh);
-	//DF_PFWAIT(">", 8);
 	return (ret);
 }
 
-int		sh_script_run(t_sh *sh, char *script) // TODO: add sh as param (subsh ...)
+/*
+** TODO: add sh as param (subsh ...)
+*/
+int		sh_script_run(t_sh *sh, char *script)
 {
 	t_lex		*lex;
 	t_com_cmds	*com_cmds;
 	int 		ret;
 
-	//ft_printf(C_CYN"\nScript:\n-------\n%s\n-------\n\n"T_END, script);
 	if (!script)
 		return (1);
 	sh_lex_init(&lex, script);
@@ -35,39 +47,20 @@ int		sh_script_run(t_sh *sh, char *script) // TODO: add sh as param (subsh ...)
 		FT_INST_RET(KO, sh_lex_free(&lex));
 	if (!lex->tlst)
 		FT_INST_RET(KO, sh_lex_free(&lex));
-	//ft_printf("lexed !\n");
-	//DF_PFWAIT("lex start >", 8);
 	if (!(com_cmds = sh_p_start(lex)))
 	{
-		//DF_PFWAIT("while s run <", 8);
 		sh_lex_free(&lex);
 		sh_g_com_cmds_free((void**)&com_cmds);
-		//DF_PFWAIT("while s run >", 8);
 		return (KO);
 	}
 	sh_lex_free(&lex);
-	//ft_printf(C_GRN"Parsed !!!\n"T_END);
-	//sh->hd_key = lex->hd_key; // Replace by dastrdup
-	//sh->hd_val = lex->hd_val; // Replace by dastrdup
-	//DF_PFWAIT("free com -", 8);
-	//DF_PFWAIT("free com +", 8);
-	//return (0); // TODO: del
-	//(void)sh;
-	//ft_printf("parsed !\n");
 	ret = sh_e_com_cmds(sh, com_cmds);
 	sh_g_com_cmds_free((void**)&com_cmds);
-	//ft_printf("execed !\n");
-	//DF_PFWAIT("i >", 8)
 	return (ret);
 }
 
 int		sh_inter_read(char **line)
 {
-	//DF0
-	//(void)line;
-	//prompt_display();
-	//signal(SIGINT, sighand_parent);
-	//get_inline(line);
 	*line = rl_start();
 	return (0);
 }
@@ -88,16 +81,14 @@ int		sh_term_run(char **envp)
 	{
 		ret = 0;
 		sh_inter_read(&line);
-		//DF_PFWAIT("i < iread >", 8)
 		if (!ft_strncmp("exit", line, 4))
 			 break;
 		rl_hist_add(line);
 		ret = sh_script_run(g_sh, line);
 		FT_MEMDEL(line)
-		//DF_PFWAIT("i < srun >", 8)
 	}
 	FT_MEMDEL(line)
-	rl_hist_save(); // TODO: history_cleanup
+	rl_hist_save();
 	rl_hist_free();
 	return (ret);
 }
@@ -111,31 +102,29 @@ int		main(int ac, char **av, char **envp)
 	else
 	{
 		sh_est = sh_term_run(envp);
-		//DF_PFWAIT("term run >", 8)
-		sh_termconfig_reset(&sh_sh()->term); // replace with sh_free
+		sh_termconfig_reset(&sh_sh()->term);
 	}
-	//DF_PFWAIT(">", 8);
 	system("leaks -q 21sh");
 	return (sh_est);
 }
 
 /*
- *
-	ft_tabins(sh_var(), ft_tabrow_set(0, "NEW", "nvalue120", 0), 0);
-	ft_tabput(sh_var(), "=");
-
-	sh_bin_init(sh_bin_ptr());
-	sh_bin_update(sh_bin(), sh_var_getval("PATH"));
-	ft_printf("Bins Updated !!!\n");
-	ft_printf("echo :: %s\n", sh_bin_getpath(sh_bin(), "echo"));
-
-	sh_als_init();
-	sh_als_add(sh_als(), "al1", "cd ");
-	sh_als_add(sh_als(), "al2", "cd ; al2");
-	sh_als_add(sh_als(), "al3", "al1 ; al2");
-
-
-	sh_als_add(sh_als(), "AA", "BB");
-	sh_als_add(sh_als(), "BB", "CC");
-	sh_als_add(sh_als(), "CC", "AA");
- */
+**
+**	ft_tabins(sh_var(), ft_tabrow_set(0, "NEW", "nvalue120", 0), 0);
+**	ft_tabput(sh_var(), "=");
+**
+**	sh_bin_init(sh_bin_ptr());
+**	sh_bin_update(sh_bin(), sh_var_getval("PATH"));
+**	ft_printf("Bins Updated !!!\n");
+**	ft_printf("echo :: %s\n", sh_bin_getpath(sh_bin(), "echo"));
+**
+**	sh_als_init();
+**	sh_als_add(sh_als(), "al1", "cd ");
+**	sh_als_add(sh_als(), "al2", "cd ; al2");
+**	sh_als_add(sh_als(), "al3", "al1 ; al2");
+**
+**
+**	sh_als_add(sh_als(), "AA", "BB");
+**	sh_als_add(sh_als(), "BB", "CC");
+**	sh_als_add(sh_als(), "CC", "AA");
+*/

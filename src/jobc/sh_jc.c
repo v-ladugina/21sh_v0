@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_jc.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 18:32:15 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 18:32:17 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 t_jcon 			*sh_jc_new(void)
@@ -28,7 +40,10 @@ t_job 			*sh_jc_new_job(int ind, int bg)
 	return (job);
 }
 
-void			sh_jc_free_job(void **pjob) // TODO: intern free
+/*
+** TODO: intern free
+*/
+void			sh_jc_free_job(void **pjob)
 {
 	DF0
 	ft_memdel(pjob);

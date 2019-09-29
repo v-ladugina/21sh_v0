@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_jc_state.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 18:33:04 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 18:33:05 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 int 			sh_jc_is_stop(t_job *job)
@@ -20,7 +32,6 @@ int 			sh_jc_is_stop(t_job *job)
 			return (0);
 		plist = plist->next;
 	}
-//	job->stopped = 1;
 	return (1);
 }
 
@@ -68,7 +79,6 @@ int 			sh_jc_mark_status(t_jcon *jc, pid_t pid, int status)
 				j->ind, !plist ? 0 : 1);
 		while (plist)
 		{
-			//if (!(p = (t_process*)plist->content) || p->pid != pid)
 			p = (t_process*)plist->content;
 			ft_printf("p->pid=%d || pid=%d\n", p->pid, pid);
 			if (p->pid != pid)

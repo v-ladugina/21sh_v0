@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_bin_manip.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:17:42 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:17:44 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
-int 	sh_bin_update(t_hset *htbin, t_dastr *bin_names, char *paths)
+int		sh_bin_update(t_hset *htbin, t_dastr *bin_names, char *paths)
 {
 	char 	**path_arr;
 	t_dastr	*bins;
@@ -47,12 +59,9 @@ char	*sh_bin_getpath(t_hset *htbin, char *bin)
 	char 	*path;
 
 	DF0
-	//ft_dprintf(2, "%s %s\n", !htbin? "N":"NN", bin);
 	if (!htbin || !bin)
 		return (NULL);
-	//ft_dprintf(2, "bin: %s\n", bin);
 	if (!(path = (char*)ft_htab_getval(htbin, bin, ft_strlenz(bin) + 1)))
 		return (NULL);
-	//ft_dprintf(2, "path: %s\n", path);
-	return (ft_strdup(path)); // check the possibility of skipping strdup
+	return (ft_strdup(path));
 }

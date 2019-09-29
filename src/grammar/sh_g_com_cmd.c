@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_g_com_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:24:35 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:24:37 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 int 			g_g_putlev = 0;
@@ -58,7 +70,6 @@ void			*sh_g_com_cmds(t_btree *ast)
 		com_cmd->gr = SH_GR_COMPLETE_CMD;
 		SHG_LSTADD_FREE(com_cmds, lst_com_cmd, com_cmd)
 		ast = ast->right;
-		//FT_MEMDEL(com_cmd);
 	}
 	if (!com_cmds->lst_com_cmd)
 	{
@@ -68,7 +79,10 @@ void			*sh_g_com_cmds(t_btree *ast)
 	return (com_cmds);
 }
 
-void			*sh_g_com_cmd(t_btree *ast) // takes com_cmd, and com_list
+/*
+** takes com_cmd, and com_list
+*/
+void			*sh_g_com_cmd(t_btree *ast)
 {
 	t_com_cmd	*com_cmd;
 	t_and_or	*and_or;
@@ -78,7 +92,7 @@ void			*sh_g_com_cmd(t_btree *ast) // takes com_cmd, and com_list
 	if (!ast || (ast->op != SH_GR_COMPLETE_CMD && ast->op != SH_GR_COMP_LIST))
 		return (NULL);
 	com_cmd = sh_g_com_cmd_new();
-	list = ast->left; // term_std
+	list = ast->left;
 	while (list)
 	{
 		if ((and_or = sh_g_and_or(list->left)))
@@ -88,7 +102,6 @@ void			*sh_g_com_cmd(t_btree *ast) // takes com_cmd, and com_list
 		else // TODO: FOR COMP_LIST but it must be compatible with complete_cmd
 			ft_dstrins_ch(com_cmd->sep, -1, TSFAKE);
 		list = list->right;
-		//FT_MEMDEL(and_or);
 	}
 	if (!com_cmd->lst_and_or)
 		return (NULL);
@@ -101,7 +114,6 @@ void			sh_g_com_cmds_put(void*g, int op)
 
 	if (!g)
 		return ;
-	//com_cmds = (t_com_cmds*)g;
 	SHG_PUT_CASTVAR(com_cmds, g, t_com_cmds*, op)
 	SHG_PUT_PRINTF("complete_commands:\n", g_g_putlev);
 	ft_lstiterop(com_cmds->lst_com_cmd, SHG_PUT_CASTFUN(sh_g_com_cmd_put), 1);

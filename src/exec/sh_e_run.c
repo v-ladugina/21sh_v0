@@ -1,12 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_e_run.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:19:36 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:19:37 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 int 	sh_e_run_exec(t_sh *sh, t_simp_cmd *simp_cmd)
 {
 	pid_t	pid;
-	//int 	wstat;
-	//struct termios tconfig;
 
-	//ft_printf("run exec");
 	DF0
     ft_dprintf(2, C_RED"run_exec: %s\n"T_END, simp_cmd->argv[0]);
 	if (BIT_IS(sh->mode, SH_MODE_SCMD))
@@ -22,16 +31,11 @@ int 	sh_e_run_exec(t_sh *sh, t_simp_cmd *simp_cmd)
 			exit(sh_e_run_env(sh, simp_cmd));
 		else
 			execve(simp_cmd->argv[0], simp_cmd->argv, simp_cmd->envp);
-		//if (BIT_IS(sh->mode, SH_MODE_SCMD))
-		//	exit(0);
 		exit(1);
 	}
-	//wait(&wstat);
 	if (BIT_IS(sh->mode, SH_MODE_SCMD) && !close(sh->sub_pipe[1]))
 		ft_read_fd_in(sh->sub_pipe[0], sh->sub_out);
 	simp_cmd->pid = pid;
-	//sh->exit = WEXITSTATUS(wstat);
-	//return (WEXITSTATUS(wstat));
 	ft_dprintf(2, C_RED"run_exec >\n"T_END);
 	return (0);
 }
@@ -44,19 +48,8 @@ int 	sh_e_run_built(t_sh *sh, t_simp_cmd *simp_cmd) // TODO: redirect cmd-sub
 	DF0
 	if (!(bi = sh_e_get_blt(simp_cmd->argv[0])))
 		return (-1);
-	/**
-	if (BIT_IS(sh->mode, SH_MODE_SCMD))
-		pipe(sh->sub_pipe);
-	if (BIT_IS(sh->mode, SH_MODE_SCMD))
-	{
-		//ft_dup2(sh->sub_pipe[0], STDOUT_FILENO, 1);
-		ft_dup2(sh->sub_pipe[1], STDOUT_FILENO, 1);
-	}
-	 */
 	sh_e_redirect(simp_cmd->lst_redir);
 	ret = bi(sh, simp_cmd->argv, simp_cmd->envp);
-	///if (BIT_IS(sh->mode, SH_MODE_SCMD))// && !close(sh->sub_pipe[1]))
-	///	ft_read_fd_in(sh->sub_pipe[0], sh->sub_out);
 	return (ret);
 }
 

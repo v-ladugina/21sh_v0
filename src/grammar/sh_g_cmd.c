@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_g_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:24:01 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:24:04 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 extern int 		g_g_putlev;
@@ -10,9 +22,6 @@ void			*sh_g_cmd_new(void)
 	cmd->core = NULL;
 	cmd->lst_redir = NULL;
 	cmd->type = -1;
-	//cmd->stdi = STDIN_FILENO;
-	//cmd->stdo = STDOUT_FILENO;
-	//cmd->stde = STDERR_FILENO;
 	return (cmd);
 }
 
@@ -51,7 +60,6 @@ void			*sh_g_cmd(t_btree *ast)
 		if ((redir = sh_g_redir(ast_redirlist->left)))
 			SHG_LSTADD_FREE(cmd, lst_redir, redir);
 		ast_redirlist = ast_redirlist->right;
-		//FT_MEMDEL(redir);
 	}
 	if (!cmd->core)
 		return (NULL);

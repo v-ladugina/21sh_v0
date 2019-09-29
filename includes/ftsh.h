@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ftsh.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 19:04:42 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 19:04:43 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FTSH_H
 # define FTSH_H
 
-#include "libft.h"
+# include "libft.h"
 
 # include <sys/ioctl.h>
 # include <termcap.h>
@@ -13,20 +25,16 @@
 # include "sh_bin.h"
 # include "sh_term.h"
 # include "ft_rl.h"
-//# include "rl_hist.h"
 # include "sh_parser.h"
 # include "sh_jobc.h"
 # include "sh_sh.h"
 # include "sh_exec.h"
 # include "sh_expan.h"
-//# include "sh_jobc.h"
-//# include "sh_lex.h"
 # include "sh_glob.h"
 # include "sh_utils.h"
 # include "sh_alias.h"
 # include "sh_builtin.h"
 
-//# define DF0 ft_dprintf(2, C_YLW"%s\n"T_END, __FUNCTION__);
 # define DF0
 
 # define D_INSTWAIT(inst, t) {inst; sleep(t);}

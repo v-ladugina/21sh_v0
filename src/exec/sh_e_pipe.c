@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_e_pipe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:19:15 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:19:18 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 int			sh_e_pipe(t_sh *sh, void *gr)
@@ -23,24 +35,16 @@ int			sh_e_pipe(t_sh *sh, void *gr)
 			cmd->stdioe[0] = fifo[0];
 		if (cmd_lst->next)
 		{
-			//ft_printf(C_MGN"--> piping ...\n"T_END);
 			if (pipe(fifo) < 0)
 			{
 				ft_printf("error: pipe()\n");
 				exit(1);
 			}
-			//ft_printf(C_GRN"PIPE (%d, %d)\n"T_END, fifo[0], fifo[1]);
 			cmd->stdioe[1] = fifo[1];
-			//if (pip->op->str[0] == TSO_A)
-			//	ft_dup2(fifo[1], STDERR_FILENO, 0);
-			//ft_dstrdel_n(pip->op, 0, 1);
 		}
 		ret = sh_e_cmd(sh, cmd);
 		cmd_lst = cmd_lst->next;
 	}
-	//while (wait(&ret) > -1)
-	//	ret = WEXITSTATUS(ret);
-	//ret = pip->neg ? pip->neg - ret : ret; // TODO: recheck
 	ret = sh_e_pipe_wait(sh, gr, WUNTRACED, &state);
 	return (ret);
 }
@@ -48,9 +52,6 @@ int			sh_e_pipe(t_sh *sh, void *gr)
 int			sh_e_pipe_wait(t_sh *sh, void *gr, int op, int *state)
 {
 	t_pipe	*pip;
-//	t_list	*cmd_lst;
-//	t_cmd	*cmd;
-//	int 	fifo[2];
 	int 	ret;
 
 	DF0
@@ -58,7 +59,6 @@ int			sh_e_pipe_wait(t_sh *sh, void *gr, int op, int *state)
 		return (0);
 	pip = (t_pipe*)gr;
 	return (sh_e_cmd_lst_wait(sh, pip->lst_cmd, op, state)); // TODO: check neg
-	//if (state == SH_E_STATE_DONE)
 }
 
 
@@ -100,14 +100,6 @@ int			sh_e_cmd(t_sh *sh, void *gr)
 	ret = cmd->exec(sh, cmd->core);
 	ft_dup_stdioe_set(stdioe, 1);
 	return (ret);
-	/*
-	if (cmd->type == SH_GR_SIMP_CMD)
-	{
-		ret = sh_e_simp_cmd(sh, cmd->core);
-		ft_dup_stdioe_set(stdioe, 1);
-		return (ret);
-	}
-	 */
 }
 
 int			sh_e_cmd_wait(t_sh *sh, void *gr, int op, int *state)

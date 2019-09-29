@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_jc_put.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 18:32:55 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 18:32:56 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 #include <signal.h>
 
@@ -18,7 +30,6 @@ int 			sh_jc_put_in_forg(t_sh *sh, int cont)
 	sh->jc->cind--;
 	sh->jc->jobs = sh->jc->jobs->next;
 	sh->jc->cjob = sh->jc->jobs ? (t_job*)sh->jc->jobs->content : NULL;
-	//ft_lst_free_head(&(sh->jc->jobs), 1, &sh_jc_free_job);
 	return (0);
 }
 

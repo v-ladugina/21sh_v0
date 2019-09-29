@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_g_loop.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:25:00 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:25:02 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 extern int 		g_g_putlev;
@@ -27,14 +39,13 @@ void			*sh_g_loop(t_btree *ast)
 
 	t_loop	*loop;
 
-	//SHG_CHECK_AST(loop, SH_GR_WHILE_CLAUSE)
 	if (!ast || (ast->op != SH_GR_WHILE_CLAUSE && ast->op != SH_GR_UNTIL_CLAUSE))
 		return (NULL);
 	loop = sh_g_loop_new();
-	if (!(loop->cond = sh_g_com_cmd(ast->left))) // free if true
+	if (!(loop->cond = sh_g_com_cmd(ast->left)))
 		return (NULL);
-	loop->cond->gr = SH_GR_COMP_LIST; // TBD
-	if (!(loop->do_group = sh_g_group(ast->right))) // free if true
+	loop->cond->gr = SH_GR_COMP_LIST;
+	if (!(loop->do_group = sh_g_group(ast->right)))
 		return (NULL);
 	return (loop);
 }

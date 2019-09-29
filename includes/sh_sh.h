@@ -1,10 +1,20 @@
-#ifndef FT_SH_H
-# define FT_SH_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_sh.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 19:07:31 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 19:07:33 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SH_SH_H
+# define SH_SH_H
 
 # include "sh_jctype.h"
-//# include "sh_jobc.h"
 # include "libft.h"
-
 
 # define SH_MODE_TER	0x01
 # define SH_MODE_INT	0x02
@@ -16,12 +26,13 @@
 
 # define SH_NEST_INDQ	0x01
 # define SH_NEST_M		0x0f
+
 // TODO: max is 7
 
-/**
- * bin_ht:		hash-table of bins <name, path>
- * bin_nl:		list of bin names
- */
+/*
+** bin_ht:		hash-table of bins <name, path>
+** bin_nl:		list of bin names
+*/
 typedef struct	s_sh
 {
 	uint8_t		mode;
@@ -32,20 +43,20 @@ typedef struct	s_sh
 	int			term_std;
 	t_term		term;
 	int			inter;
-	int 		stdi;
-	int 		stdo;
+	int			stdi;
+	int			stdo;
 	t_hset		*bin_ht;
 	t_dastr		*bin_nl;
 	t_table		*var;
-	int 		*sub_pipe;
+	int			*sub_pipe;
 	t_dstr		*sub_out;
 	uint8_t		exit;
 }				t_sh;
 
-t_sh 			*sh_sh(void);
-int 			sh_sh_init(t_sh **sh, char **envp, int mode);
-t_sh 			*sh_sh_clone(t_sh *sh, int mode);
-int 			sh_sh_new(t_sh **sh);
-int 			sh_sh_free(t_sh **sh);
+t_sh			*sh_sh(void);
+int				sh_sh_init(t_sh **sh, char **envp, int mode);
+t_sh			*sh_sh_clone(t_sh *sh, int mode);
+int				sh_sh_new(t_sh **sh);
+int				sh_sh_free(t_sh **sh);
 
 #endif

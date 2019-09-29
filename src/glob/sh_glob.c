@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_glob.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:22:42 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:22:43 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 #include <dirent.h>
 
@@ -13,18 +25,16 @@ t_list		*sh_glob_scandir(char *base, char *spath)
 	ft_dstrins_str(path, 0, base);
 	ft_dstrins_ch(path, -1, '/');
 	ft_dstrins_str(path, -1, spath);
-//	ft_printf("--> scandir: path <%s>\n", path->str);
 	if (!(dirp = opendir(path->str)))
 		return (NULL);
 	while ((dent = readdir(dirp)))
 		ft_lstadd(&conds, ft_lstnew(dent->d_name, ft_strlenz(dent->d_name) + 1));
 	ft_dstrfree(&path);
 	closedir(dirp);
-//	ft_printf("+++> scanned: %s\n", conds->content);
 	return (conds);
 }
 
-int				rl_glob_indir_lin(char *base, char *spath, char *pat,
+int			rl_glob_indir_lin(char *base, char *spath, char *pat,
 									 t_dastr *res)
 {
 	t_list	*conds;
@@ -32,14 +42,11 @@ int				rl_glob_indir_lin(char *base, char *spath, char *pat,
 	char	*slash;
 	char 	*tmp;
 
-	//ft_printf("--> indir_lin: %s, %s, %s\n", base, spath, pat);
-	//DF_PFWAIT("indir_lin i <", 8)
 	tmp = NULL;
 	if ((slash = ft_strchr_inv(pat, '/')))
 		conds = sh_glob_scandir(base, (tmp = ft_strndup(pat, slash++ - pat))); // TODO: clean after strdup
 	else
 		conds = sh_glob_scandir(base, spath);
-	//DF_PFWAIT("indir_lin i <<", 8)
 	FT_MEMDEL(tmp)
 	cond = conds;
 	while (cond)
@@ -60,12 +67,13 @@ int				rl_glob_indir_lin(char *base, char *spath, char *pat,
 		cond = cond->next;
 	}
 	ft_lst_free(&conds, &ft_memdel);
-	//DF_PFWAIT("indir_lin i >", 8)
 	return (0);
 }
 
-// TODO: check memory leaks + Refactoring to ft
-int				rl_glob_indir(char *base, char *spath, char *pat,
+/*
+**TODO: check memory leaks + Refactoring to ft
+*/
+int			rl_glob_indir(char *base, char *spath, char *pat,
 								 t_dastr *res)
 {
 	t_list	*conds;
@@ -74,7 +82,6 @@ int				rl_glob_indir(char *base, char *spath, char *pat,
 	char 	*tmp0;
 	char 	*tmp1;
 
-	//ft_printf("--> indir: %s, %s, %s\n", base, spath, pat);
 	conds = sh_glob_scandir(base, spath);
 	cond = conds;
 	slash = ft_strchr(pat, '/');
@@ -100,6 +107,5 @@ int				rl_glob_indir(char *base, char *spath, char *pat,
 		cond = cond->next;
 	}
 	ft_lst_free(&conds, &ft_memdel);
-	//DF_PFWAIT("i >", 8)
 	return (0);
 }

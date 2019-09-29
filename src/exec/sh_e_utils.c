@@ -3,7 +3,6 @@
 char 		*sh_e_get_binpath(t_sh *sh, char *bin_name)
 {
 	char 	*binpath;
-	//char 	*cwd;
 
 	DF0
 	(void)sh;
@@ -11,9 +10,6 @@ char 		*sh_e_get_binpath(t_sh *sh, char *bin_name)
 		return (NULL);
 	if (!ft_strchr(bin_name, '/'))
 		return (sh_bin_getpath(sh->bin_ht, bin_name));
-	//if (!(cwd = ft_getcwd()))
-	//	return (NULL);
-	//binpath = ft_strconnect(3, cwd, "/", bin_name);
 	binpath = ft_strdup(bin_name);
 	return (binpath); // TODO: to be improved
 }
@@ -45,11 +41,8 @@ char		**sh_e_get_envp(t_sh *sh, t_dastr *assigns)
 	char 		**envp;
 
 	envt = ft_tabdup(sh->var);
-	//DF_PFWAIT("< tabdup <", 8);
 	sh_var_assign(envt, assigns);
-	//DF_PFWAIT("< var_assign <", 8);
 	envp = ft_tabto_arr(envt, &sh_var_tsel_glo, &sh_var_tbuild_env);
 	ft_tabfree(&envt);
-	//DF_PFWAIT("< tab_to_arr <", 8);
 	return (envp);
 }

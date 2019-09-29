@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_grammar.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 19:06:39 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 19:06:40 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SH_GRAMMAR_H
 #define SH_GRAMMAR_H
 
@@ -5,8 +17,6 @@
 # include "sh_lex.h"
 # include "sh_parser.h"
 # include "sh_gram_type.h"
-//# include "sh_gr_type.h"
-//#include "sh_exec.h"
 
 # define SHG_CHECK_MALL(g) {if (!(g = ft_memalloc(sizeof(*g)))) return (NULL);};
 # define SHG_LSTADD(g, lst, ncont) ft_lst_addlast(&(g->lst), ft_lstnew(ncont, sizeof(*ncont)));
@@ -92,7 +102,6 @@ typedef enum	e_grammar_rules
 typedef void *(t_g_new)(void);
 typedef void *(t_g_seek)(t_btree*);
 typedef void (put)(void*, int);
-//typedef int (t_exec)(t_sh*, gr);
 
 typedef struct	s_gr
 {
@@ -103,12 +112,12 @@ typedef struct	s_gr
 }				t_gr;
 
 /*
-int				sh_g_com_cmds(t_btree *ast, void *);
-int				sh_g_com_cmd(t_btree *ast, void *);
-int				sh_g_and_or(t_btree *ast, void *);
-int				sh_g_pipe(t_btree *ast, void *);
-int				sh_g_cmd(t_btree *ast, void *);
-int				sh_g_redir(t_btree *ast, void *);
+**int				sh_g_com_cmds(t_btree *ast, void *);
+**int				sh_g_com_cmd(t_btree *ast, void *);
+**int				sh_g_and_or(t_btree *ast, void *);
+**int				sh_g_pipe(t_btree *ast, void *);
+**int				sh_g_cmd(t_btree *ast, void *);
+**int				sh_g_redir(t_btree *ast, void *);
 */
 
 void			*sh_g_loop_new(void);

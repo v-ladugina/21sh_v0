@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_g_and_or.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:23:44 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:23:46 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 extern int 		g_g_putlev;
@@ -39,7 +51,6 @@ void			*sh_g_and_or(t_btree *ast_ao)
 		else
 			break;
 		ast_ao = ast_ao->right;
-		//FT_MEMDEL(pipe);
 	}
 	if (!and_or->lst_pipe)
 		return (NULL);

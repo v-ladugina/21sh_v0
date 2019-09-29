@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_glob_match.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:22:52 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:23:07 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
-int     sh_glob_match(char *str, char *pat)
+int		sh_glob_match(char *str, char *pat)
 {
-	int     i;
-	int     j;
-	char    *ptr;
+	int		i;
+	int		j;
+	char	*ptr;
 
 	i = 0;
 	j = 0;
@@ -18,7 +30,7 @@ int     sh_glob_match(char *str, char *pat)
 			return (sh_glob_match(str + i, pat + j + 1)
 					|| sh_glob_match(str + i + 1, pat + j));
 		else if (pat[j] == '[' && (ptr = ft_strchr(pat + j, ']'))
-				 && sh_glob_match_range(str[i], pat + j))
+				&& sh_glob_match_range(str[i], pat + j))
 			j = ptr - pat + 1 + 0 * i++;
 		else
 			return (0);
@@ -28,25 +40,22 @@ int     sh_glob_match(char *str, char *pat)
 	return ((!pat[j] && !str[i]) || !ft_strcmp(pat + j, "*") ? 1 : 0);
 }
 
-int     sh_glob_match_range(int c, char *ran)
+int		sh_glob_match_range(int c, char *ran)
 {
 	int i;
-//	int class;
 	int neg;
 
 	if (*ran != '[')
 		return (0);
-	//if ((class = sh_glob_cget(ran)) > -1)
-	//  return (sh_g_caction[class](c));
 	neg = ran[1] == '^';
 	i = neg ? 1 : 0;
-	while(ran[++i] && ran[i] != ']')
+	while (ran[++i] && ran[i] != ']')
 	{
 		if (c == ran[i])
 			return (1 - neg);
 		else if (ran[i] == '-' && i - 1 > -1
-				 && ran[i + 1] && ran[i + 1] != ']'
-				 && c >= ran[i - 1] && c <= ran[i + 1])
+				&& ran[i + 1] && ran[i + 1] != ']'
+				&& c >= ran[i - 1] && c <= ran[i + 1])
 			return (1 - neg);
 	}
 	return (neg);

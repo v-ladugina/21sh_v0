@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_blt_cd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:18:10 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:18:11 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 #include <sys/stat.h>
 
-int 	sh_blt_cd_setwd(t_sh *sh, char *dir)
+int		sh_blt_cd_setwd(t_sh *sh, char *dir)
 {
 	char 	*cwd;
 
@@ -22,7 +34,7 @@ int 	sh_blt_cd_setwd(t_sh *sh, char *dir)
 	return (0);
 }
 
-int 	sh_blt_cd(t_sh *sh, char **argv, char **envp)
+int		sh_blt_cd(t_sh *sh, char **argv, char **envp)
 {
 	int		ac;
 	char	*dir;

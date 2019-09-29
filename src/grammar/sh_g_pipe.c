@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_g_pipe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abbesbes <abbesbes@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/28 17:25:07 by abbesbes          #+#    #+#             */
+/*   Updated: 2019/09/28 17:25:09 by abbesbes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ftsh.h"
 
 extern int 		g_g_putlev;
@@ -38,7 +50,6 @@ void			*sh_g_pipe(t_btree *ast)
 		if ((cmd = sh_g_cmd(ast_pipesec->left)))
 			SHG_LSTADD_FREE(pipe, lst_cmd, cmd);
 		ast_pipesec = ast_pipesec->right;
-		//FT_MEMDEL(cmd);
 	}
 	if (!pipe->lst_cmd)
 		return (NULL);
